@@ -10,6 +10,7 @@ const BRAND_KITS = [
   { id: 'matt-linkedin',  label: 'Matt Linkedin' },
   { id: 'ramp',           label: 'Ramp' },
   { id: 'sales-linkedin', label: 'Sales Linkedin' },
+  { id: 'snap',           label: 'Snap' },
 ];
 
 interface BrandKitListNavProps {

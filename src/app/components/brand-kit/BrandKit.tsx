@@ -10,6 +10,7 @@ import { CustomVariablesTab } from './CustomVariablesTab';
 import { LeftNav } from './LeftNav';
 import { BrandKitListNav } from './BrandKitListNav';
 import { CompletenessPanel, FoundationsCompleteness } from './CompletenessPanel';
+import { SnapLanding } from './SnapLanding';
 
 const TABS = [
   { id: 'overview',          label: 'Overview' },
@@ -53,8 +54,15 @@ export default function BrandKit() {
       {/* ── Brand kit list ─────────────────────────────────────────── */}
       <BrandKitListNav activeKit={activeKit} onSelect={setActiveKit} />
 
+      {/* ── Snap brand landing (full-bleed, replaces main column) ─── */}
+      {activeKit === 'snap' && (
+        <div className="flex-1 overflow-y-auto min-w-0">
+          <SnapLanding />
+        </div>
+      )}
+
       {/* ── Main column ────────────────────────────────────────────── */}
-      <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
+      {activeKit !== 'snap' && <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
 
         {/* ── Header ──────────────────────────────��─────────────────── */}
         <div
@@ -201,6 +209,7 @@ export default function BrandKit() {
 
         </div>
       </div>
+      </div>}
     </div>
   );
 }
