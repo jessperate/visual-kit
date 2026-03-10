@@ -54,15 +54,13 @@ export default function BrandKit() {
       {/* ── Brand kit list ─────────────────────────────────────────── */}
       <BrandKitListNav activeKit={activeKit} onSelect={setActiveKit} />
 
-      {/* ── Snap brand landing (full-bleed, replaces main column) ─── */}
-      {activeKit === 'snap' && (
+      {/* ── Main column ────────────────────────────────────────────── */}
+      {activeKit === 'snap' ? (
         <div className="flex-1 overflow-y-auto min-w-0">
           <SnapLanding />
         </div>
-      )}
-
-      {/* ── Main column ────────────────────────────────────────────── */}
-      {activeKit !== 'snap' && <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
+      ) : (
+      <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
 
         {/* ── Header ──────────────────────────────��─────────────────── */}
         <div
@@ -209,7 +207,7 @@ export default function BrandKit() {
 
         </div>
       </div>
-      </div>}
+      )}
     </div>
   );
 }
