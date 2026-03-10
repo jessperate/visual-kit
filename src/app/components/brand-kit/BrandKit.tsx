@@ -55,11 +55,6 @@ export default function BrandKit() {
       <BrandKitListNav activeKit={activeKit} onSelect={setActiveKit} />
 
       {/* ── Main column ────────────────────────────────────────────── */}
-      {activeKit === 'snap' ? (
-        <div className="flex-1 overflow-y-auto min-w-0">
-          <SnapLanding />
-        </div>
-      ) : (
       <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
 
         {/* ── Header ──────────────────────────────��─────────────────── */}
@@ -189,15 +184,21 @@ export default function BrandKit() {
 
           {/* Scrollable content */}
           <div ref={scrollContainerRef} className="flex-1 overflow-y-auto" style={{ minWidth: 0 }}>
-            {activeTab === 'overview'    && <OverviewTab />}
-            {activeTab === 'foundations' && (
-              <FoundationsTab onCompletenessUpdate={setCompleteness} />
+            {activeKit === 'snap' ? (
+              <SnapLanding />
+            ) : (
+              <>
+                {activeTab === 'overview'    && <OverviewTab />}
+                {activeTab === 'foundations' && (
+                  <FoundationsTab onCompletenessUpdate={setCompleteness} />
+                )}
+                {activeTab === 'product-lines'    && <ProductLinesTab />}
+                {activeTab === 'content-types'    && <ContentTypesTab />}
+                {activeTab === 'audiences'        && <AudiencesTab />}
+                {activeTab === 'regions'          && <RegionsTab />}
+                {activeTab === 'custom-variables' && <CustomVariablesTab />}
+              </>
             )}
-            {activeTab === 'product-lines'    && <ProductLinesTab />}
-            {activeTab === 'content-types'    && <ContentTypesTab />}
-            {activeTab === 'audiences'        && <AudiencesTab />}
-            {activeTab === 'regions'          && <RegionsTab />}
-            {activeTab === 'custom-variables' && <CustomVariablesTab />}
           </div>
 
           {/* Foundations completeness panel */}
@@ -207,7 +208,6 @@ export default function BrandKit() {
 
         </div>
       </div>
-      )}
     </div>
   );
 }

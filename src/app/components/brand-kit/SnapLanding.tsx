@@ -92,15 +92,40 @@ const COLOR_RULES = [
   'Dark Yellow highlight is valid on Snap Yellow backgrounds.',
 ];
 
-// Ghost SVG icon (Snapchat ghost)
-function SnapGhost({ size = 32, color = '#000000' }: { size?: number; color?: string }) {
+// Logo image helpers — white-bg PNGs, inverted on dark backgrounds
+const LOGO = {
+  wordmark:   '/logos/snap-wordmark.png',
+  vertical:   '/logos/snap-vertical.png',
+  horizontal: '/logos/snap-horizontal.png',
+};
+
+function SnapWordmark({ height = 24, dark = true, blend = false }: { height?: number; dark?: boolean; blend?: boolean }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M50 6C34 6 21 19 21 35v24c-3 1-7 3-7 7 0 5 7 6 12 7 1 3 3 9 9 9 2 0 4-1 7-2 2 1 5 3 8 3s6-2 8-3c3 1 5 2 7 2 6 0 8-6 9-9 5-1 12-2 12-7 0-4-4-6-7-7V35C79 19 66 6 50 6Z"
-        fill={color}
-      />
-    </svg>
+    <img
+      src={LOGO.wordmark}
+      alt="SNAPCHAT"
+      style={{ height, width: 'auto', filter: dark ? 'invert(1)' : 'none', display: 'block', mixBlendMode: blend ? 'multiply' : 'normal' }}
+    />
+  );
+}
+
+function SnapVertical({ height = 80, dark = true }: { height?: number; dark?: boolean }) {
+  return (
+    <img
+      src={LOGO.vertical}
+      alt="Snapchat vertical lockup"
+      style={{ height, width: 'auto', filter: dark ? 'invert(1)' : 'none', display: 'block', mixBlendMode: 'multiply' }}
+    />
+  );
+}
+
+function SnapHorizontal({ height = 40, dark = true }: { height?: number; dark?: boolean }) {
+  return (
+    <img
+      src={LOGO.horizontal}
+      alt="Snapchat horizontal lockup"
+      style={{ height, width: 'auto', filter: dark ? 'invert(1)' : 'none', display: 'block', mixBlendMode: 'multiply' }}
+    />
   );
 }
 
@@ -137,18 +162,8 @@ export function SnapLanding() {
 
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <div style={{ padding: '72px 64px 64px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 40 }}>
-          <SnapGhost size={40} color="#FFFC00" />
-          <span style={{
-            fontFamily: "'Barlow Condensed', sans-serif",
-            fontWeight: 700,
-            fontSize: 22,
-            letterSpacing: '0.08em',
-            color: '#ffffff',
-            textTransform: 'uppercase',
-          }}>
-            Snap Inc
-          </span>
+        <div style={{ marginBottom: 40 }}>
+          <SnapWordmark height={28} dark={true} />
         </div>
 
         <div style={{
@@ -353,24 +368,21 @@ export function SnapLanding() {
         <div style={sectionHeadStyle}>Logo System</div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 2, marginBottom: 24 }}>
-          {/* Ghost only */}
+          {/* Vertical lockup */}
           <div style={{ backgroundColor: '#FBFBF5', padding: '40px 32px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
-            <SnapGhost size={64} color="#000000" />
-            <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: '#000000', opacity: 0.5, textAlign: 'center' }}>Ghost — icon only</div>
+            <SnapVertical height={100} dark={false} />
+            <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: '#000000', opacity: 0.5, textAlign: 'center' }}>Vertical lockup</div>
           </div>
 
-          {/* Wordmark + Ghost horizontal */}
+          {/* Horizontal lockup */}
           <div style={{ backgroundColor: '#FBFBF5', padding: '40px 32px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <SnapGhost size={40} color="#000000" />
-              <span style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 32, letterSpacing: '0.04em', color: '#000000', textTransform: 'uppercase' }}>SNAPCHAT</span>
-            </div>
+            <SnapHorizontal height={48} dark={false} />
             <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: '#000000', opacity: 0.5, textAlign: 'center' }}>Horizontal lockup</div>
           </div>
 
           {/* Wordmark on Yellow */}
           <div style={{ backgroundColor: '#FFFC00', padding: '40px 32px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
-            <span style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 32, letterSpacing: '0.04em', color: '#000000', textTransform: 'uppercase' }}>SNAPCHAT</span>
+            <SnapWordmark height={36} dark={false} blend={true} />
             <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: '#000000', opacity: 0.6, textAlign: 'center' }}>Wordmark on yellow</div>
           </div>
         </div>
@@ -412,7 +424,7 @@ export function SnapLanding() {
               Body copy goes here. Keep it short and punchy.
             </div>
             <div style={{ position: 'absolute', bottom: 16, right: 16 }}>
-              <SnapGhost size={24} color="#000000" />
+              <SnapWordmark height={14} dark={false} />
             </div>
           </div>
 
@@ -430,8 +442,8 @@ export function SnapLanding() {
                 <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>Put agenda line here</span>
               </div>
             ))}
-            <div style={{ position: 'absolute', bottom: 16, right: 16 }}>
-              <SnapGhost size={24} color="rgba(255,255,255,0.3)" />
+            <div style={{ position: 'absolute', bottom: 16, right: 16, opacity: 0.4 }}>
+              <SnapWordmark height={14} dark={true} />
             </div>
           </div>
         </div>
@@ -445,10 +457,10 @@ export function SnapLanding() {
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <SnapGhost size={18} color="rgba(255,255,255,0.3)" />
-          <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.3)' }}>
-            Snap Inc Brand Portal · 2025
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, opacity: 0.35 }}>
+          <SnapWordmark height={14} dark={true} />
+          <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.8)' }}>
+            Brand Portal · 2025
           </span>
         </div>
         <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.2)' }}>
